@@ -1,0 +1,42 @@
+package github;
+
+import com.codeborne.selenide.Configuration;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
+
+public class SelenideRepositorySearch {
+
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.baseUrl = "https://github.com";
+    }
+
+    @Test
+    void SoftAssertionsPageWithJUnit5ExampleTest () {
+        open("/selenide/selenide");
+        $("#wiki-tab").click();
+
+        $(".wiki-more-pages-link").click();
+        $(byText("Show 3 more pages…")).click();
+        $(byText("SoftAssertions")).shouldBe(visible).click();
+        $(".markdown-body").shouldHave(text("""
+                @ExtendWith({SoftAssertsExtension.class})
+                class Tests {
+                  @Test
+                  void test() {
+                    Configuration.assertionMode = SOFT;
+                    open("page.html");
+                
+                    $("#first").should(visible).click();
+                    $("#second").should(visible).click();
+                  }
+                }
+                """));
+    }
+
+}
