@@ -16,11 +16,12 @@ public class SelenideRepositorySearch {
     }
 
     @Test
-    void SoftAssertionsPageWithJUnit5ExampleTest () {
+    void softAssertionsPageWithJUnit5ExampleTest () {
         open("/selenide/selenide");
         $("#wiki-tab").click();
 
         $(".wiki-more-pages-link").click();
+        //$("#wiki-pages-box button.js-wiki-more-pages-link").shouldHave(text("Show 3 more pages…")).click();
         $("#wiki-pages-box").$(byText("Show 3 more pages…")).click();
         $("#wiki-pages-box").$(byText("SoftAssertions")).click();
         $(".markdown-body").shouldHave(text("""
